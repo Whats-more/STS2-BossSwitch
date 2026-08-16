@@ -6,16 +6,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\References\New Reference v0.111.0\0Harmony.dll</HintPath>
+      <HintPath>Your\Path\To\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="BaseLib">
-      <HintPath>..\References\New Reference v0.111.0\BaseLib.dll</HintPath>
+      <HintPath>Your\Path\To\BaseLib.dll</HintPath>
     </Reference>
     <Reference Include="GodotSharp">
-      <HintPath>..\References\New Reference v0.111.0\GodotSharp.dll</HintPath>
+      <HintPath>Your\Path\To\GodotSharp.dll</HintPath>
     </Reference>
     <Reference Include="sts2">
-      <HintPath>..\References\New Reference v0.111.0\sts2.dll</HintPath>
+      <HintPath>Your\Path\To\sts2.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
