@@ -70,8 +70,10 @@ public static class BossSwitchOptionPatch
 
     private static async Task ShowRandomThreeOptions(Neow neow, Rng rng)
     {
-        PropertyInfo prop = neow.Owner?.RunState.GetType().GetProperty("Acts", BindingFlags.Public | BindingFlags.Instance);
-        List<ActModel> acts = (List<ActModel>)prop?.GetValue(neow.Owner?.RunState);
+        if (neow.Owner == null) return;
+        
+        PropertyInfo prop = neow.Owner.RunState.GetType().GetProperty("Acts", BindingFlags.Public | BindingFlags.Instance);
+        List<ActModel> acts = (List<ActModel>)prop?.GetValue(neow.Owner.RunState);
 
         List<AncientEventModel> validAncients = AncientRelicDatabase.Ancients.Where(ancient => acts?.Where(act => act.Ancient == ancient).Count() == 0).ToList();
         
@@ -86,12 +88,24 @@ public static class BossSwitchOptionPatch
             ModelId selectedId = relicIds.ElementAt(rng.NextInt(relicIds.Count));
             // Log.Info($"chosen relic: {selectedId.ToString()}");
             RelicModel relic = ModelDb.GetById<RelicModel>(selectedId)?.ToMutable();
+            if (relic is DustyTome dustyTome)
+            {
+                dustyTome.SetupForPlayer(neow.Owner);
+            }
+            else if (relic is ArchaicTooth archaicTooth)
+            {
+                archaicTooth.SetupForPlayer(neow.Owner);
+            }
+            // else if (relic is TouchOfOrobas touchOfOrobas)
+            // {
+            //     touchOfOrobas.SetupForPlayer(neow.Owner);
+            // }
             randomThreeRelics.Add(relic);
         }
 
         
         List<EventOption> relicOptions = randomThreeRelics.Select(relic =>
-            EventOption.FromRelic(relic, neow, () => ObtainRelicAndFinish(neow, relic), $"YOURMOD_NEOW_ANCIENT_PAGE.options.{relic.Id.Entry}")
+            EventOption.FromRelic(relic, neow, () => ObtainRelicAndFinish(neow, relic), $"options.{relic.Id.Entry}")
         ).ToList();
         
         Traverse.Create(neow).Method("SetEventState",
