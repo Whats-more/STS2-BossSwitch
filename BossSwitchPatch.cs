@@ -88,6 +88,7 @@ public static class BossSwitchOptionPatch
             ModelId selectedId = relicIds.ElementAt(rng.NextInt(relicIds.Count));
             // Log.Info($"chosen relic: {selectedId.ToString()}");
             RelicModel relic = ModelDb.GetById<RelicModel>(selectedId)?.ToMutable();
+            relic.Owner = neow.Owner; // this will update the image of relic "Yummy Cookie".
             if (relic is DustyTome dustyTome)
             {
                 dustyTome.SetupForPlayer(neow.Owner);
