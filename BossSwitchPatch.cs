@@ -39,11 +39,9 @@ public static class BossSwitchOptionPatch
     private static void GenerateInitialOptionsPostfix(Neow __instance, ref IReadOnlyList<EventOption> __result)
     {
         List<EventOption> options = __result.ToList();
-        if (options.Count == 0) return;
+        if (options.Count <= 1) return; // skipping the case count == 1 is to avoid replacing the only option of Neow in custom modes "Draft" and "Sealed Deck", since that replacement will leave the player without a starter deck
 
-        Rng rng = Traverse.Create(__instance).Property("Rng").GetValue<Rng>();
-        if (rng == null)
-            rng = __instance.Owner?.RunState?.Rng?.UpFront;
+        Rng rng = __instance.Owner?.RunState.Rng.UpFront;
 
         if (rng == null) return;
 
