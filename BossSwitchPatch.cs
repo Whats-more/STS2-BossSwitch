@@ -101,6 +101,11 @@ public static class BossSwitchOptionPatch
             // {
             //     touchOfOrobas.SetupForPlayer(neow.Owner);
             // }
+            else if (relic is SeaGlass seaGlass)
+            {
+                List<CharacterModel> characters = ModelDb.AllCharacters.Where(character => character.Id != neow.Owner.Character.Id).ToList();
+                seaGlass.CharacterId = characters[rng.NextInt(characters.Count)].Id;
+            }
             randomThreeRelics.Add(relic);
         }
 
