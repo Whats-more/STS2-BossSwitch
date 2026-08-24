@@ -44,9 +44,8 @@ public static class BossSwitchOptionPatch
         Rng rng = __instance.Owner?.RunState.Rng.UpFront;
 
         if (rng == null) return;
-
-        const float chanceToInclude = 0.35f;
-        bool includeNewOption = rng.NextFloat() < chanceToInclude;
+        
+        bool includeNewOption = rng.NextFloat() < BossSwitchConfig.ChanceToAppear / 100f;
 
         if (!includeNewOption)
             return; // 
