@@ -23,7 +23,7 @@ namespace BossSwitch
         {
             ModConfigRegistry.Register(ModId, new BossSwitchConfig());
 
-            Harmony.DEBUG = true;
+            // Harmony.DEBUG = true;
             Harmony harmony = new Harmony(ModId); // 格式：模组ID.作者名
             BossSwitchOptionPatch.Apply(harmony);
         }
